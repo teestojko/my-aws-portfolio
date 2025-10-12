@@ -1,0 +1,67 @@
+services:
+  # Laravel PHP
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mysql
+
+  # Nginx
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  # MySQL
+  mysql:
+    image: mysql:8.0.41
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD}
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+
+  # Node / Vite（開発用）
+  node:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    working_dir: /var/www/html
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - app
+
+volumes:
+  node_modules:
+  mysql_data:

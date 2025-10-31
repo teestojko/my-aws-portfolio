@@ -1,0 +1,615 @@
+.portfolio {
+    position: relative;
+    box-sizing: border-box;
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.fixed-menu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fixed-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.fixed-menu li {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.fixed-menu li:hover {
+    color: #ffeb3b;
+}
+
+.scene-container {
+    width: 100%;
+    height: 102vh;
+    position: relative;
+}
+
+.scene {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.scene-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
+    text-shadow: 0 0 5px #ffffe0, 0 0 10px #ffffe0, 0 0 20px #ffeb3b,
+                0 0 30px #ffeb3b, 0 0 40px #ffd700, 0 0 50px #ffd700,
+                0 0 75px #ffd700;
+    white-space: pre-line;
+}
+
+.light-effect {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.8), transparent);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+@keyframes moveLight {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(0, 0) scale(1.1);
+    }
+}
+
+
+
+
+.lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    margin: auto;
+    width: 90vw;
+}
+
+.line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.line::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 15vh;
+    width: 100%;
+    top: -50%;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
+    animation: drop 7s 0s infinite;
+    /* アニメーションを7秒かけて1回実行する 0秒の遅延（すぐに開始） */
+
+    animation-fill-mode: forwards;
+    /* アニメーションが終わった後の状態を保持する設定 動き終わった位置（top: 110%）で止まる */
+
+    animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+
+
+}
+
+/* :nth-child(1) は CSS で1番目の .line に対応 */
+.line:nth-child(1) {
+    margin-left: -25%;
+}
+.line:nth-child(1)::after {
+    animation-delay: 2s;
+}
+
+.line:nth-child(2) {
+    display: none;
+}
+
+/* :nth-child(3) は CSS で3番目の .line に対応 */
+.line:nth-child(3) {
+    margin-left: 25%;
+}
+.line:nth-child(3)::after {
+    animation-delay: 2.5s;
+}
+
+@keyframes drop {
+    0% {
+        top: 0;
+        /* アニメーションの最初（0%のタイミング）で、要素のtop位置を親の上から50%分上にずらしている。 */
+
+    }
+    100% {
+        top: 600%;
+        /* アニメーションの最後（100%のタイミング）で、要素のtop位置を親の下から10%分下にずらしている。 */
+
+    }
+}
+
+
+
+
+
+.custom-background{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+    background: linear-gradient(0deg, #5fb4c0, #3896ef, #0f3eda, #00109d, #000);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(var(--random-move-y, -100px))
+        translateX(var(--random-move-x, 100px))
+        scale(1.1);
+    }
+}
+
+.profile-container {
+    z-index: 10; /* 光のエフェクトの上に表示 */
+    color: white;
+    padding: 15%;
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-title {
+    font-size: 4rem;
+    margin-bottom: 10%;
+}
+
+.profile-detail{
+    margin: 0;
+    line-height: 3rem;
+    font-size: 2rem;
+}
+
+.work-section {
+    position: relative;
+    margin-top: 20%;
+    width: 100%;
+    height: max-content;
+}
+
+.work-container {
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    width: 100vw;
+    height: 100vh;
+}
+
+.svg-container{
+    position: absolute;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.work-container-title {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* 好みのフォントに変更 */
+    font-size: 4rem;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase; /* すべて大文字に */
+    letter-spacing: 0.5rem; /* 文字間隔を広く */
+    position: relative;
+}
+
+.work-container-title::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00f, #0ff, #0f0);
+    transition: width 0.5s ease-out;
+}
+
+.work-container-title:hover::before {
+    width: 100%; /* ホバー時に下線アニメーション */
+}
+
+.title-animation {
+    display: inline-block;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content {
+    width: 100%;
+}
+
+.work-container-img-all {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.work-container-img-item {
+    display: block;
+    width: 100%;
+    margin: 50px auto;
+}
+
+/* 初期状態（非表示＆下にずらす） */
+.work-container-img {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    overflow: visible;
+}
+
+/* 左からスライドインの初期状態 */
+.work-container-img.left {
+    opacity: 0;
+    transform: translateX(-300px);
+    transition: transform 1.2s ease, opacity 0.6s ease;
+    margin-left: 60%;
+}
+
+/* 右からスライドインの初期状態 */
+.work-container-img.right {
+    opacity: 0;
+    transform: translateX(300px);
+    transition: transform 1.2s ease, opacity 0.6s ease;
+    margin-left: 20%;
+}
+
+.work-container-img.left.show,
+.work-container-img.right.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ホバー時のアニメーションはそのまま */
+.work-container-img:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+.link {
+    z-index: 0;
+    text-decoration: none;
+}
+
+.price-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.price-link {
+    margin: 7% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: 100px;
+    background: linear-gradient(135deg, #c7c7c7, #8e8aa2);
+    color: #e2ffdc;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.price-link:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.skill-section {
+    height: auto;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.skill-title {
+    font-weight: bold;
+    font-size: 4rem;
+    margin: 10%;
+}
+
+.skill-content {
+    position: relative;
+    z-index: 1; /* 背景より上に配置 */
+    color: white;
+    text-align: center;
+    padding: 1% 10%;
+}
+
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(10px); /* 少し下からフェードイン */
+    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+}
+
+.fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0); /* 元の位置に戻る */
+}
+
+.shape {
+    position: absolute;
+    width: 70vmax;
+    height: 70vmax;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 40%;
+    animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.shape1 { left: -20vmin; top: -20vmin; }
+.shape2 { right: -10vmin; bottom: 0; animation: morph 10s linear infinite alternate, spin 26s linear infinite reverse; }
+.shape3 { left: 10vmin; top: 60vmin; animation: morph 18s linear infinite alternate, spin 30s linear infinite; }
+.shape4 { right: 15vmin; top: 30vmin; animation: morph 12s linear infinite alternate, spin 24s linear infinite reverse; }
+.shape5 { left: 40vmin; bottom: -10vmin; animation: morph 20s linear infinite alternate, spin 22s linear infinite; }
+
+.work-section,
+.skill-section{
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: #43abba;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: space-evenly;
+	overflow: hidden;
+}
+
+.work-section::before,
+.work-section::after,
+.skill-section::before,
+.skill-section::after{
+	content: "";
+	width: 70vmax;
+	height: 70vmax;
+	position: absolute;
+	background: rgba(255, 255, 255, 0.07);
+	left: -20vmin;
+	top: -20vmin;
+	animation: morph 15s linear infinite alternate, spin 20s linear infinite;
+	z-index: 1;
+	will-change: border-radius, transform;
+	transform-origin: 55% 55%;
+	pointer-events: none;
+}
+
+.work-section::after,
+.skill-section::after {
+    width: 70vmin;
+    height: 70vmin;
+    left: auto;
+    right: -10vmin;
+    top: auto;
+    bottom: 0;
+    animation: morph 10s linear infinite alternate, spin 26s linear infinite reverse;
+    transform-origin: 20% 20%;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0 50%
+	}
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%; }
+  100% {
+    border-radius: 40% 60%; }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.icon-all{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 5%;
+}
+
+.skill-item{
+    width: 350px;
+    height: 350px;
+}
+
+.skill-name{
+    font-size: 2rem;
+}
+
+.skill-icon{
+    width: 250px;
+    height: 250px;
+    padding: 30px;
+}
+
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 30vh;
+    width: 100%;
+    background: linear-gradient(0deg, #43abba 0%,#4dcfef 29%,#50b8d5 66%, #3f9eac 100%);
+}
+
+.contact-section {
+    background: linear-gradient(to right, #4f5d73, #84888f);
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    min-width: 600px;
+    height: 180px;
+    font-family: 'Arial', sans-serif;
+}
+
+.contact-title {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #f2f2f2;
+}
+
+.contact-mail {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #cacaca;
+    letter-spacing: 0.5px;
+}
+
+.contact-section:hover {
+    transform: translateY(-10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-mail:hover {
+    color: #FFD700;
+    cursor: pointer;
+}
+
+.section {
+    opacity: 0.9;
+}
+
+@media (max-width: 1024px) {
+    .work-container-img {
+        width: 350px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .work-container-img {
+        width: 300px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .work-container-img {
+        width: 200px;
+        height: 150px;
+    }
+    .profile-container {
+        padding: 0;
+        width: 80%;
+    }
+}
+
+
